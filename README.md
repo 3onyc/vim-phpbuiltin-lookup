@@ -33,6 +33,10 @@ pip install -r requirements.txt
 
 `<leader>u` in normal/insert mode performs a lookup.
 
+# Screenshot
+
+![Screenshot](screen.png)
+
 # TODO
 
 * Support class methods (Without class detection)
