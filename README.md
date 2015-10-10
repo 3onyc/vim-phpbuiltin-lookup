@@ -6,6 +6,7 @@ Plugin to look up function signatures of built-in php functions, and display the
 
 * Python 2.7 or 3
 * curl
+* grep
 
 ## Setup
 
