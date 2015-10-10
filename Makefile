@@ -8,3 +8,5 @@ functions: manual.html
 
 clean:
 	rm -f manual.html functions
+
+.PHONY: all clean
