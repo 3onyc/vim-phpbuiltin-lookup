@@ -9,16 +9,10 @@ Plugin to look up function signatures of built-in php functions, and display the
 
 ## Setup
 
-1. Install the requirements for generating the functions file using pip:
-
-```bash
-pip install -r requirements.txt
-```
-
-2. Run `make`
+1. Run `make`
    (Downloads php documentation and generates function list from that)
 
-3. Ready for use.
+2. Ready for use.
 
 ## Settings
 

@@ -1,23 +1,58 @@
 from __future__ import print_function
+from HTMLParser import HTMLParser
 
-from bs4 import BeautifulSoup
 import sys
 import re
 
-tagRegex = re.compile(r'<[^>]+>')
+TAG_REGEX = re.compile(r'<[^>]+>')
+
+class SynopsisParser(HTMLParser):
+    def __init__(self, *args, **kwargs):
+        HTMLParser.__init__(self, *args, **kwargs)
+
+        self.in_synopsis_level = 0
+        self.reset_data()
+
+    def in_synopsis(self):
+        return self.in_synopsis_level > 0
+
+    def reset_data(self):
+        self.synopsis_data = []
+
+    @staticmethod
+    def is_synopsis_tag(attr):
+        return "methodsynopsis" in attr.get("class", "")
+
+    def handle_starttag(self, tag, attributes):
+        attr = dict(attributes)
+        if self.is_synopsis_tag(attr):
+            self.in_synopsis_level += + 1
+            self.reset_data()
+
+        elif self.in_synopsis_level > 0:
+            self.in_synopsis_level += 1
+
+
+    def handle_endtag(self, tag):
+        if self.in_synopsis():
+            self.in_synopsis_level -= 1
+
+            if not self.in_synopsis():
+                print(cleanup(" ".join(self.synopsis_data)))
+
+    def handle_data(self, data):
+        if self.in_synopsis():
+            self.synopsis_data.append(data)
 
 def cleanup(html):
-    cleaned = tagRegex.sub(' ', html)
+    cleaned = TAG_REGEX.sub(' ', html)
     cleaned = (' '.join(cleaned.replace('\n', '').split())).replace(' , ', ', ')
 
     return cleaned
 
-def main(): 
+def main():
     with open(sys.argv[1]) as doc:
-        soup = BeautifulSoup(doc.read(), 'lxml')
-
-    for elem in soup.find_all(class_='methodsynopsis'):
-        print(cleanup(str(elem)))
+        SynopsisParser().feed(doc.read())
 
 if __name__ == "__main__":
     main()
