@@ -1,5 +1,8 @@
 from __future__ import print_function
-from HTMLParser import HTMLParser
+try:
+    from HTMLParser import HTMLParser  # Python 2
+except ImportError:
+    from html.parser import HTMLParser # Python 3
 
 import sys
 import re
