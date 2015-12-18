@@ -4,7 +4,7 @@ Plugin to look up function signatures of built-in php functions, and display the
 
 ## Requirements
 
-* Python 2.7 or 3
+* Python 2.7 or 3.x
 * curl
 * grep
 
