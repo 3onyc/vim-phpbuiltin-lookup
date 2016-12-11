@@ -41,7 +41,9 @@ class SynopsisParser(HTMLParser):
             self.in_synopsis_level -= 1
 
             if not self.in_synopsis():
-                print(cleanup(" ".join(self.synopsis_data)))
+                synopsis = cleanup(" ".join(self.synopsis_data))
+                if "public" not in synopsis and "private" not in synopsis and "protected" not in synopsis:
+                    print(synopsis)
 
     def handle_data(self, data):
         if self.in_synopsis():
