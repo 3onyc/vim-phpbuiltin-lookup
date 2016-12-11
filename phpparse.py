@@ -9,6 +9,7 @@ import re
 
 TAG_REGEX = re.compile(r'<[^>]+>')
 
+
 class SynopsisParser(HTMLParser):
     def __init__(self, *args, **kwargs):
         HTMLParser.__init__(self, *args, **kwargs)
@@ -35,7 +36,6 @@ class SynopsisParser(HTMLParser):
         elif self.in_synopsis_level > 0:
             self.in_synopsis_level += 1
 
-
     def handle_endtag(self, tag):
         if self.in_synopsis():
             self.in_synopsis_level -= 1
@@ -47,11 +47,13 @@ class SynopsisParser(HTMLParser):
         if self.in_synopsis():
             self.synopsis_data.append(data)
 
+
 def cleanup(html):
     cleaned = TAG_REGEX.sub(' ', html)
     cleaned = (' '.join(cleaned.replace('\n', '').split())).replace(' , ', ', ')
 
     return cleaned
+
 
 def main():
     with open(sys.argv[1]) as doc:
