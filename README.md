@@ -2,6 +2,9 @@
 
 Plugin to look up function signatures of built-in php functions, and display them on the cmd line.
 
+**I highly recommend using [phpcd.vim](https://github.com/lvht/phpcd.vim) instead,
+it does what this plugin did better, and a whole lot more.**
+
 ## Requirements
 
 * Python 2.7 or 3.x
